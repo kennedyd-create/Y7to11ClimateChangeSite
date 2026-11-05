@@ -346,6 +346,11 @@ footer.site{border-top:1px solid var(--rule);padding-block:24px 40px;font-size:.
 .ws table.wst{border:1px solid var(--rule);margin-top:6px}
 .ws table.wst td,.ws table.wst th{border:1px solid var(--rule);height:2.6em}
 .ws ol>li{display:grid;gap:6px}
+
+.teacherbtn{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;border:2px solid var(--accent);color:var(--accent);font:700 .9rem/1 var(--f-body);text-decoration:none;white-space:nowrap}
+.teacherbtn:hover{background:var(--accent-soft)}
+.teacherbtn[aria-current="page"]{background:var(--accent);color:var(--accent-ink)}
+@media (max-width:640px){.teacherbtn{padding:6px 10px;font-size:.82rem}}
 </style>
 <header class="mast">
   <div class="wrap mast-row">
@@ -353,10 +358,11 @@ footer.site{border-top:1px solid var(--rule);padding-block:24px 40px;font-size:.
     <div class="level" role="group" aria-label="Choose your level">
       <button data-l="1" title="Year 7–8">Explorer</button><button data-l="2" title="Year 9–10">Analyst</button><button data-l="3" title="Year 11+ / NCEA Level 1">Scientist</button>
     </div>
+    <a class="teacherbtn" href="#teacher"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>Teacher</a>
     <button class="iconbtn" id="theme" aria-label="Switch light or dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
   </div>
   <nav class="wrap tabs" aria-label="Sections">
-    <a href="#overview" class="st"><i>1</i>Start here</a><a href="#evidence" class="st"><i>2</i>The evidence</a><a href="#map" class="st"><i>3</i>Who causes it?</a><a href="#nz" class="st"><i>4</i>Aotearoa NZ</a><a href="#impacts" class="st"><i>5</i>Impacts</a><a href="#court" class="st"><i>6</i>Evidence Court</a><a href="#future" class="st"><i>7</i>Futures</a><span class="tabsep" aria-hidden="true"></span><a href="#practice">Practice</a><a href="#videos">Videos</a><a href="#teacher">Teacher</a><a href="#sources">Sources</a>
+    <a href="#overview" class="st"><i>1</i>Start here</a><a href="#evidence" class="st"><i>2</i>The evidence</a><a href="#map" class="st"><i>3</i>Who causes it?</a><a href="#nz" class="st"><i>4</i>Aotearoa NZ</a><a href="#impacts" class="st"><i>5</i>Impacts</a><a href="#court" class="st"><i>6</i>Evidence Court</a><a href="#future" class="st"><i>7</i>Futures</a><span class="tabsep" aria-hidden="true"></span><a href="#practice">Practice</a><a href="#videos">Videos</a><a href="#sources">Sources</a>
   </nav>
 </header>
 
@@ -459,7 +465,7 @@ footer.site{border-top:1px solid var(--rule);padding-block:24px 40px;font-size:.
   <p id="gate-err" class="small" style="color:var(--warm)" hidden>That password isn’t right. Check with your teacher and try again.</p>
   <button class="btn primary" type="submit">Open the atlas</button></form>
   <div id="gate-back"></div>
-  <p class="small muted">Teachers: open the <a href="#teacher">Teacher</a> tab.</p>
+  <p class="small muted">Teachers: use the <a href="#teacher">Teacher</a> button at the top of the page.</p>
 </div></div></section>
 
 <!-- PRACTICE -->
@@ -1481,7 +1487,7 @@ function showGate(){const any=Object.keys(unlockedLevels()).length>0;
 function route(){let h=location.hash.replace('#','');if(!VIEWS.includes(h))h='overview';const changed=route.cur!==h;route.cur=h;
   const locked=!OPENV.includes(h)&&!isUnlocked(level);
   $('#v-gate').hidden=!locked;VIEWS.forEach(v=>{const el=$('#v-'+v);if(el)el.hidden=locked||v!==h});
-  if(locked){showGate();$$('.tabs a').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+h?'page':'false'));return}$$('.tabs a').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+h?'page':'false'));if(!built[h]&&BUILD[h]){built[h]=true;BUILD[h]()}stepChrome(h);store.set('view',h);if(changed)window.scrollTo(0,0);const t=$('.tabs a[aria-current="page"]');if(t)t.scrollIntoView({block:'nearest',inline:'nearest'})}
+  if(locked){showGate();$$('.tabs a, a.teacherbtn').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+h?'page':'false'));return}$$('.tabs a, a.teacherbtn').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+h?'page':'false'));if(!built[h]&&BUILD[h]){built[h]=true;BUILD[h]()}stepChrome(h);store.set('view',h);if(changed)window.scrollTo(0,0);const t=$('.tabs a[aria-current="page"]');if(t)t.scrollIntoView({block:'nearest',inline:'nearest'})}
 
 /* ===== generic line chart ===== */
 function lineChart(el,o){
